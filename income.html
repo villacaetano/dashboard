@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Villa Caetano Owner Dashboard" name="description"/>
+  <title>
+   Property Income | Villa Caetano
+  </title>
+  <link href="assets/images/brand/villa-caetano/logo-black.png" rel="icon"/>
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="assets/vendors/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="assets/css/style.css" rel="stylesheet"/>
+ </head>
+ <body data-page="income">
+  <div class="admin-shell">
+   <div class="sidebar-backdrop" data-sidebar-close="">
+   </div>
+   <aside aria-label="Main navigation" class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+     <a aria-label="Villa Caetano dashboard" class="brand-mark" href="index.html">
+      <div class="sidebar-logo-wrap">
+       <img alt="Villa Caetano Goa" class="vc-logo" src="assets/images/brand/villa-caetano/logo-white.png"/>
+      </div>
+     </a>
+    </div>
+    <nav class="sidebar-nav">
+     <a class="nav-link" data-page="dashboard" href="index.html">
+      <span class="nav-icon">
+       <i class="bi bi-speedometer2">
+       </i>
+      </span>
+      <span class="nav-text">
+       Overview
+      </span>
+     </a>
+     <a class="nav-link" data-page="income" href="income.html">
+      <span class="nav-icon">
+       <i class="bi bi-cash-stack">
+       </i>
+      </span>
+      <span class="nav-text">
+       Income
+      </span>
+     </a>
+     <a class="nav-link" data-page="expenses" href="expenses.html">
+      <span class="nav-icon">
+       <i class="bi bi-receipt">
+       </i>
+      </span>
+      <span class="nav-text">
+       One-off Expenses
+      </span>
+     </a>
+     <a class="nav-link" data-page="billing" href="monthly-billing.html">
+      <span class="nav-icon"><i class="bi bi-calendar2-week"></i></span>
+      <span class="nav-text">Billing</span>
+     </a>
+<a class="nav-link" data-page="issues" href="issues.html">
+      <span class="nav-icon">
+       <i class="bi bi-tools">
+       </i>
+      </span>
+      <span class="nav-text">
+       Issues
+      </span>
+     </a>
+<a class="nav-link" data-page="transactions" href="transactions.html">
+      <span class="nav-icon">
+       <i class="bi bi-arrow-left-right">
+       </i>
+      </span>
+      <span class="nav-text">
+       Transactions
+      </span>
+     </a>
+     <a class="nav-link" data-page="reports" href="reports.html">
+      <span class="nav-icon"><i class="bi bi-bar-chart-line"></i></span>
+      <span class="nav-text">Reports</span>
+     </a>
+     <a class="nav-link" data-page="settings" href="settings.html">
+      <span class="nav-icon">
+       <i class="bi bi-gear">
+       </i>
+      </span>
+      <span class="nav-text">
+       Settings
+      </span>
+     </a>
+    </nav>
+    <div class="sidebar-user">
+     <img alt="Villa Caetano" class="avatar-img avatar-md sidebar-user-avatar" src="assets/images/brand/villa-caetano/logo-black.png"/>
+     <strong>
+      Villa Caetano
+     </strong>
+     <small>
+      Owner Dashboard
+     </small>
+    </div>
+    <div class="sidebar-footer">
+     <span class="status-dot">
+     </span>
+     <span class="sidebar-footer-text">
+      Dashboard ready
+     </span>
+    </div>
+   </aside>
+   <div class="admin-main">
+    <nav class="navbar admin-navbar navbar-expand bg-white">
+     <div class="container-fluid px-3 px-lg-4">
+      <button aria-controls="adminSidebar" aria-expanded="true" aria-label="Toggle sidebar" class="sidebar-toggle" data-sidebar-toggle="" type="button">
+       <span>
+       </span>
+       <span>
+       </span>
+       <span>
+       </span>
+      </button>
+      <a class="d-lg-none ms-2" href="index.html">
+       <img alt="Villa Caetano" class="vc-logo-navbar" src="assets/images/brand/villa-caetano/logo-black.png"/>
+      </a>
+      <form class="d-none d-md-flex ms-3 flex-grow-1" role="search">
+       <input aria-label="Search" class="form-control search-input" placeholder="Search income, expenses, issues" type="search"/>
+      </form>
+      <div class="navbar-actions ms-auto">
+       <button aria-label="Switch color theme" class="icon-button theme-toggle" data-theme-toggle="" type="button">
+        <i class="bi bi-moon-stars" data-theme-icon="">
+        </i>
+       </button>
+       <button aria-label="Export backup" class="icon-button" data-export="" title="Export backup" type="button">
+        <i class="bi bi-download">
+        </i>
+       </button>
+       <div class="dropdown">
+        <button class="profile-button dropdown-toggle" data-bs-toggle="dropdown" type="button">
+         <img alt="Villa Caetano" class="avatar-img avatar-sm" src="assets/images/brand/villa-caetano/logo-black.png"/>
+         <span class="profile-name d-none d-sm-inline">
+          Villa Caetano
+         </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+         <li>
+          <a class="dropdown-item" href="settings.html">
+           Dashboard settings
+          </a>
+         </li>
+         <li>
+          <a class="dropdown-item" href="index.html">
+           Overview
+          </a>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </nav>
+    <main class="dashboard-content">
+     <div class="container-fluid px-3 px-lg-4 py-4">
+      <div class="page-heading">
+       <div class="page-heading-copy">
+        <span class="page-icon">
+         <i class="bi bi-cash-stack">
+         </i>
+        </span>
+        <div>
+         <p class="eyebrow mb-1">
+          Financials
+         </p>
+         <h1 class="h3 mb-1">
+          Property Income
+         </h1>
+         <p class="text-muted mb-0">
+          Enter the monthly property income and let Villa Caetano calculate GST, manager share, owner revenue and TDS.
+         </p>
+        </div>
+       </div>
+      </div>
+      <div class="row g-3">
+       <div class="col-12 col-xl-4">
+        <div class="panel income-entry-panel-compact">
+         <div class="panel-header income-entry-header">
+          <div>
+           <h2 class="h5 mb-1 section-title"><i class="bi bi-plus-circle"></i><span>Add Monthly Income</span></h2>
+           <p class="text-muted mb-0">Enter the property's monthly income before GST.</p>
+          </div>
+          <a class="income-expense-link-mini" href="expenses.html" id="income-add-expense-link"><i class="bi bi-plus-circle"></i> One-off expense</a>
+         </div>
+         <form class="needs-validation" id="income-form" novalidate="">
+          <div class="vc-form-grid income-form-compact-grid">
+           <div>
+            <label class="form-label small mb-1">Month</label>
+            <input class="form-control form-control-sm" id="income-month" name="month" required="" type="month"/>
+           </div>
+           <div>
+            <label class="form-label small mb-1">Property Income Before GST (₹)</label>
+            <input class="form-control form-control-sm" id="income-gross" min="0" name="gross" placeholder="0" required="" step="0.01" type="number"/>
+           </div>
+           <div class="full">
+            <div class="income-live-calculation income-live-calculation-compact">
+             <div class="income-calc-row"><span>Property income before GST</span><strong id="calc-gross">₹0</strong></div>
+             <div class="income-calc-row"><span>Property manager share <small id="calc-manager-pct">(40%)</small></span><strong id="calc-manager">₹0</strong></div>
+             <div class="income-calc-row"><span>Owner share <small id="calc-owner-pct">(60%)</small></span><strong id="calc-owner">₹0</strong></div>
+             <div class="income-calc-row"><span>GST <small id="calc-gst-pct">(18%)</small></span><strong id="calc-gst">₹0</strong></div>
+             <div class="income-calc-row"><span>TDS on owner share <small id="calc-tds-pct">(10%)</small></span><strong id="calc-tds">₹0</strong></div>
+             <div class="income-calc-total"><span>Total property value incl. GST</span><strong id="calc-total">₹0</strong></div>
+             <div class="income-calc-net"><span>Net owner revenue after TDS</span><strong id="calc-net">₹0</strong></div>
+            </div>
+           </div>
+           <div class="full">
+            <div class="income-rate-box">
+             <div class="income-rate-title"><span>Allocation Rates</span><a href="settings.html" title="Financial settings"><i class="bi bi-gear"></i></a></div>
+             <div class="income-rate-controls">
+              <label>Manager share <input class="form-control form-control-sm" id="income-manager" max="100" min="0" name="managerPercent" required="" step="0.01" type="number" value="40"/>%</label>
+              <label>TDS on owner <input class="form-control form-control-sm" id="income-tds" max="100" min="0" name="tdsPercent" required="" step="0.01" type="number" value="10"/>%</label>
+              <div class="income-owner-auto"><span>Owner share</span><strong id="income-owner-auto">60%</strong></div>
+             </div>
+            </div>
+           </div>
+           <div class="full">
+            <label class="form-label small mb-1">Notes</label>
+            <textarea class="form-control form-control-sm" name="note" placeholder="Optional note for this month" rows="2"></textarea>
+           </div>
+           <div class="full">
+            <button class="btn btn-vc btn-sm w-100" type="submit"><i class="bi bi-check2-circle"></i> Save Income</button>
+           </div>
+          </div>
+         </form>
+        </div>
+       </div>
+       <div class="col-12 col-xl-8">
+        <div class="panel income-register-panel">
+         <div class="vc-register-summary">
+          <div class="vc-register-summary-item">
+           <span>
+            Owner received
+           </span>
+           <strong id="income-owner-total">
+            ₹0
+           </strong>
+          </div>
+          <div class="vc-register-summary-item">
+           <span>
+            Manager share
+           </span>
+           <strong id="income-manager-total">
+            ₹0
+           </strong>
+          </div>
+          <div class="vc-register-summary-item">
+           <span>
+            TDS
+           </span>
+           <strong id="income-tds-total">
+            ₹0
+           </strong>
+          </div>
+         </div>
+         <div class="panel-header">
+          <input aria-label="Filter income by month" class="form-control form-control-sm" id="income-filter-month" style="max-width:155px" type="month"/>
+          <div>
+           <h2 class="h5 mb-1 section-title">
+            <i class="bi bi-table">
+            </i>
+            <span>
+             Income Records
+            </span>
+           </h2>
+           <p class="text-muted mb-0">
+            Historical records retain the rates used when they were entered.
+           </p>
+          </div>
+          <input aria-label="Search income" class="form-control form-control-sm" id="income-search" placeholder="Search..." style="max-width:180px" type="search"/>
+         </div>
+         <div class="table-responsive">
+          <table class="table align-middle mb-0">
+           <thead>
+            <tr>
+             <th>
+              Month
+             </th>
+             <th class="text-end">
+              Income Before GST
+             </th>
+             <th class="text-end">
+              Manager
+             </th>
+             <th class="text-end">
+              Owner Share
+             </th>
+             <th class="text-end">
+              GST
+             </th>
+             <th class="text-end">
+              TDS
+             </th>
+             <th class="text-end">
+              Net Revenue
+             </th>
+             <th>
+             </th>
+            </tr>
+           </thead>
+           <tbody id="income-table">
+           </tbody>
+          </table>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <script src="assets/js/bootstrap.bundle.min.js">
+    </script>
+    <script src="assets/js/main.js">
+    </script>
+    <script src="assets/js/villa-caetano.js">
+    </script>
+   </div>
+  </div>
+ </body>
+</html>

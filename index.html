@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Villa Caetano Owner Dashboard" name="description"/>
+  <title>
+   Owner Dashboard | Villa Caetano
+  </title>
+  <link href="assets/images/brand/villa-caetano/logo-black.png" rel="icon"/>
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="assets/vendors/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="assets/css/style.css" rel="stylesheet"/>
+ </head>
+ <body data-page="dashboard">
+  <div class="admin-shell">
+   <div class="sidebar-backdrop" data-sidebar-close="">
+   </div>
+   <aside aria-label="Main navigation" class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+     <a aria-label="Villa Caetano dashboard" class="brand-mark" href="index.html">
+      <div class="sidebar-logo-wrap">
+       <img alt="Villa Caetano Goa" class="vc-logo" src="assets/images/brand/villa-caetano/logo-white.png"/>
+      </div>
+     </a>
+    </div>
+    <nav class="sidebar-nav">
+     <a class="nav-link" data-page="dashboard" href="index.html">
+      <span class="nav-icon">
+       <i class="bi bi-speedometer2">
+       </i>
+      </span>
+      <span class="nav-text">
+       Overview
+      </span>
+     </a>
+     <a class="nav-link" data-page="income" href="income.html">
+      <span class="nav-icon">
+       <i class="bi bi-cash-stack">
+       </i>
+      </span>
+      <span class="nav-text">
+       Income
+      </span>
+     </a>
+     <a class="nav-link" data-page="expenses" href="expenses.html">
+      <span class="nav-icon">
+       <i class="bi bi-receipt">
+       </i>
+      </span>
+      <span class="nav-text">
+       One-off Expenses
+      </span>
+     </a>
+     <a class="nav-link" data-page="billing" href="monthly-billing.html">
+      <span class="nav-icon"><i class="bi bi-calendar2-week"></i></span>
+      <span class="nav-text">Billing</span>
+     </a>
+<a class="nav-link" data-page="issues" href="issues.html">
+      <span class="nav-icon">
+       <i class="bi bi-tools">
+       </i>
+      </span>
+      <span class="nav-text">
+       Issues
+      </span>
+     </a>
+<a class="nav-link" data-page="transactions" href="transactions.html">
+      <span class="nav-icon">
+       <i class="bi bi-arrow-left-right">
+       </i>
+      </span>
+      <span class="nav-text">
+       Transactions
+      </span>
+     </a>
+     <a class="nav-link" data-page="reports" href="reports.html">
+      <span class="nav-icon"><i class="bi bi-bar-chart-line"></i></span>
+      <span class="nav-text">Reports</span>
+     </a>
+     <a class="nav-link" data-page="settings" href="settings.html">
+      <span class="nav-icon">
+       <i class="bi bi-gear">
+       </i>
+      </span>
+      <span class="nav-text">
+       Settings
+      </span>
+     </a>
+    </nav>
+    <div class="sidebar-user">
+     <img alt="Villa Caetano" class="avatar-img avatar-md sidebar-user-avatar" src="assets/images/brand/villa-caetano/logo-black.png"/>
+     <strong>
+      Villa Caetano
+     </strong>
+     <small>
+      Owner Dashboard
+     </small>
+    </div>
+    <div class="sidebar-footer">
+     <span class="status-dot">
+     </span>
+     <span class="sidebar-footer-text">
+      Dashboard ready
+     </span>
+    </div>
+   </aside>
+   <div class="admin-main">
+    <nav class="navbar admin-navbar navbar-expand bg-white">
+     <div class="container-fluid px-3 px-lg-4">
+      <button aria-controls="adminSidebar" aria-expanded="true" aria-label="Toggle sidebar" class="sidebar-toggle" data-sidebar-toggle="" type="button">
+       <span>
+       </span>
+       <span>
+       </span>
+       <span>
+       </span>
+      </button>
+      <a class="d-lg-none ms-2" href="index.html">
+       <img alt="Villa Caetano" class="vc-logo-navbar" src="assets/images/brand/villa-caetano/logo-black.png"/>
+      </a>
+      <form class="d-none d-md-flex ms-3 flex-grow-1" role="search">
+       <input aria-label="Search" class="form-control search-input" placeholder="Search income, expenses, issues" type="search"/>
+      </form>
+      <div class="navbar-actions ms-auto">
+       <button aria-label="Switch color theme" class="icon-button theme-toggle" data-theme-toggle="" type="button">
+        <i class="bi bi-moon-stars" data-theme-icon="">
+        </i>
+       </button>
+       <button aria-label="Export backup" class="icon-button" data-export="" title="Export backup" type="button">
+        <i class="bi bi-download">
+        </i>
+       </button>
+       <div class="dropdown">
+        <button class="profile-button dropdown-toggle" data-bs-toggle="dropdown" type="button">
+         <img alt="Villa Caetano" class="avatar-img avatar-sm" src="assets/images/brand/villa-caetano/logo-black.png"/>
+         <span class="profile-name d-none d-sm-inline">
+          Villa Caetano
+         </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+         <li>
+          <a class="dropdown-item" href="settings.html">
+           Dashboard settings
+          </a>
+         </li>
+         <li>
+          <a class="dropdown-item" href="index.html">
+           Overview
+          </a>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </nav>
+    <main class="dashboard-content">
+     <div class="container-fluid px-3 px-lg-4 py-4">
+      <div class="page-heading">
+       <div class="page-heading-copy">
+        <span class="page-icon">
+         <i class="bi bi-house-heart">
+         </i>
+        </span>
+        <div>
+         <p class="eyebrow mb-1">
+          Villa Caetano • Goa
+         </p>
+         <h1 class="h3 mb-1">
+          Owner Dashboard
+         </h1>
+         <p class="text-muted mb-0">
+          Your property income, owner revenue, expenses and maintenance in one place.
+         </p>
+        </div>
+       </div>
+       <div class="heading-actions">
+        <a class="btn btn-outline-secondary btn-sm" href="income.html">
+         <i class="bi bi-plus-lg">
+         </i>
+         Add Income
+        </a>
+        <a class="btn btn-vc btn-sm" href="expenses.html">
+         <i class="bi bi-receipt">
+         </i>
+         Add Expense
+        </a>
+       </div>
+      </div>
+      <section aria-label="Financial metrics" class="row g-3 mt-1">
+       <div class="col-12 col-sm-6 col-xl-3">
+        <article class="metric-card metric-primary">
+         <div class="metric-top">
+          <span class="metric-label">
+           Gross Property Income
+          </span>
+          <span class="metric-icon">
+           <i class="bi bi-building">
+           </i>
+          </span>
+         </div>
+         <div class="metric-value vc-money" id="gross-income">
+          ₹0
+         </div>
+         <div class="metric-meta metric-subvalue">
+          <span>
+           Before GST
+          </span>
+          <strong id="gross-income-with-gst">
+           Including 18% GST: ₹0
+          </strong>
+         </div>
+        </article>
+       </div>
+       <div class="col-12 col-sm-6 col-xl-3">
+        <article class="metric-card metric-success">
+         <div class="metric-top">
+          <span class="metric-label">
+           Net Owner Revenue
+          </span>
+          <span class="metric-icon">
+           <i class="bi bi-wallet2">
+           </i>
+          </span>
+         </div>
+         <div class="metric-value vc-money" id="net-revenue">
+          ₹0
+         </div>
+         <div class="metric-meta">
+          <span>
+           Owner share less TDS
+          </span>
+         </div>
+        </article>
+       </div>
+       <div class="col-12 col-sm-6 col-xl-3">
+        <article class="metric-card metric-warning">
+         <div class="metric-top">
+          <span class="metric-label">
+           Owner Expenses
+          </span>
+          <span class="metric-icon">
+           <i class="bi bi-receipt">
+           </i>
+          </span>
+         </div>
+         <div class="metric-value vc-money" id="owner-expenses">
+          ₹0
+         </div>
+         <div class="metric-meta">
+          <span>
+           One-off expenses + owner-paid bills
+          </span>
+         </div>
+        </article>
+       </div>
+       <div class="col-12 col-sm-6 col-xl-3">
+        <article class="metric-card metric-danger">
+         <div class="metric-top">
+          <span class="metric-label">
+           Net Cashflow
+          </span>
+          <span class="metric-icon">
+           <i class="bi bi-graph-up-arrow">
+           </i>
+          </span>
+         </div>
+         <div class="metric-value vc-money" id="net-cashflow">
+          ₹0
+         </div>
+         <div class="metric-meta">
+          <span>
+           Revenue minus owner expenses
+          </span>
+         </div>
+        </article>
+       </div>
+      </section>
+      <section class="panel mt-3 income-breakdown-panel income-breakdown-thin" aria-label="Income breakdown">
+       <div class="vc-breakdown">
+        <div class="vc-breakdown-item vc-breakdown-thin-item">
+         <span>Manager Share</span><strong id="manager-share">₹0</strong>
+        </div>
+        <div class="vc-breakdown-item vc-breakdown-thin-item">
+         <span>Owner Share</span><strong id="owner-share">—</strong>
+        </div>
+        <div class="vc-breakdown-item vc-breakdown-thin-item">
+         <span>TDS Paid</span><strong id="tds-paid">₹0</strong>
+        </div>
+        <div class="vc-breakdown-item vc-breakdown-thin-item">
+         <span>Net Owner Revenue</span><strong id="net-revenue-2">—</strong>
+        </div>
+       </div>
+      </section>
+      <section class="row g-3 mt-1 dashboard-trend-row">
+       <div class="col-12 col-xl-8">
+        <div class="panel h-100 dashboard-chart-panel trend-panel">
+         <div class="panel-header">
+          <div>
+           <h2 class="h5 mb-1 section-title">
+            <i class="bi bi-graph-up-arrow">
+            </i>
+            <span>
+             Owner Revenue Trend
+            </span>
+           </h2>
+           <p class="text-muted mb-0">
+            Net owner revenue over the latest six months.
+           </p>
+          </div>
+          <a class="btn btn-light btn-sm" href="income.html">
+           Manage Income
+          </a>
+         </div>
+         <div aria-label="Owner revenue trend" class="vc-trend-chart" id="trend-chart">
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-xl-4">
+        <div class="panel h-100 dashboard-chart-panel calendar-panel">
+         <div class="panel-header">
+          <div>
+           <h2 class="h5 mb-1 section-title">
+            <i class="bi bi-calendar3">
+            </i>
+            <span>
+             Calendar
+            </span>
+           </h2>
+           <p class="text-muted mb-0">
+            Expense and issue dates are marked.
+           </p>
+          </div>
+         </div>
+         <div class="vc-calendar" id="vc-calendar">
+         </div>
+        </div>
+       </div>
+      </section>
+      <section class="row g-3 mt-1">
+       <div class="col-12 col-xl-7">
+        <div class="panel" id="transactions">
+         <div class="panel-header">
+          <div>
+           <h2 class="h5 mb-1 section-title">
+            <i class="bi bi-arrow-left-right">
+            </i>
+            <span>
+             Recent Transactions
+            </span>
+           </h2>
+           <p class="text-muted mb-0">
+            Latest owner income and property expenses.
+           </p>
+          </div>
+         </div>
+         <div class="table-responsive">
+          <table class="table align-middle mb-0">
+           <thead>
+            <tr>
+             <th>
+              Date
+             </th>
+             <th>
+              Type
+             </th>
+             <th>
+              Description
+             </th>
+             <th class="text-end">
+              Amount
+             </th>
+            </tr>
+           </thead>
+           <tbody id="recent-transactions">
+           </tbody>
+          </table>
+         </div>
+        </div>
+       </div>
+       <div class="col-12 col-xl-5">
+        <div class="panel h-100">
+         <div class="panel-header">
+          <div>
+           <h2 class="h5 mb-1 section-title">
+            <i class="bi bi-tools">
+            </i>
+            <span>
+             Open Issues
+            </span>
+           </h2>
+           <p class="text-muted mb-0">
+            Maintenance items needing attention.
+           </p>
+          </div>
+          <a class="btn btn-light btn-sm" href="issues.html">
+           View All
+          </a>
+         </div>
+         <div class="vc-list" id="issue-list">
+         </div>
+        </div>
+       </div>
+      </section>
+     </div>
+    </main>
+    <footer class="admin-footer">
+     <div class="container-fluid px-3 px-lg-4">
+      <span>
+       Villa Caetano Owner Dashboard • Goa
+      </span>
+      <span>
+       Financial overview &amp; property maintenance
+      </span>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="assets/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="assets/js/main.js">
+  </script>
+  <script src="assets/js/villa-caetano.js">
+  </script>
+ </body>
+</html>

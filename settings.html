@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="Villa Caetano Owner Dashboard" name="description"/>
+  <title>
+   Settings | Villa Caetano
+  </title>
+  <link href="assets/images/brand/villa-caetano/logo-black.png" rel="icon"/>
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="assets/vendors/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="assets/css/style.css" rel="stylesheet"/>
+ </head>
+ <body data-page="settings">
+  <div class="admin-shell">
+   <div class="sidebar-backdrop" data-sidebar-close="">
+   </div>
+   <aside aria-label="Main navigation" class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+     <a aria-label="Villa Caetano dashboard" class="brand-mark" href="index.html">
+      <div class="sidebar-logo-wrap">
+       <img alt="Villa Caetano Goa" class="vc-logo" src="assets/images/brand/villa-caetano/logo-white.png"/>
+      </div>
+     </a>
+    </div>
+    <nav class="sidebar-nav">
+     <a class="nav-link" data-page="dashboard" href="index.html">
+      <span class="nav-icon">
+       <i class="bi bi-speedometer2">
+       </i>
+      </span>
+      <span class="nav-text">
+       Overview
+      </span>
+     </a>
+     <a class="nav-link" data-page="income" href="income.html">
+      <span class="nav-icon">
+       <i class="bi bi-cash-stack">
+       </i>
+      </span>
+      <span class="nav-text">
+       Income
+      </span>
+     </a>
+     <a class="nav-link" data-page="expenses" href="expenses.html">
+      <span class="nav-icon">
+       <i class="bi bi-receipt">
+       </i>
+      </span>
+      <span class="nav-text">
+       One-off Expenses
+      </span>
+     </a>
+     <a class="nav-link" data-page="billing" href="monthly-billing.html">
+      <span class="nav-icon"><i class="bi bi-calendar2-week"></i></span>
+      <span class="nav-text">Billing</span>
+     </a>
+<a class="nav-link" data-page="issues" href="issues.html">
+      <span class="nav-icon">
+       <i class="bi bi-tools">
+       </i>
+      </span>
+      <span class="nav-text">
+       Issues
+      </span>
+     </a>
+<a class="nav-link" data-page="transactions" href="transactions.html">
+      <span class="nav-icon">
+       <i class="bi bi-arrow-left-right">
+       </i>
+      </span>
+      <span class="nav-text">
+       Transactions
+      </span>
+     </a>
+     <a class="nav-link" data-page="reports" href="reports.html">
+      <span class="nav-icon"><i class="bi bi-bar-chart-line"></i></span>
+      <span class="nav-text">Reports</span>
+     </a>
+     <a class="nav-link" data-page="settings" href="settings.html">
+      <span class="nav-icon">
+       <i class="bi bi-gear">
+       </i>
+      </span>
+      <span class="nav-text">
+       Settings
+      </span>
+     </a>
+    </nav>
+    <div class="sidebar-user">
+     <img alt="Villa Caetano" class="avatar-img avatar-md sidebar-user-avatar" src="assets/images/brand/villa-caetano/logo-black.png"/>
+     <strong>
+      Villa Caetano
+     </strong>
+     <small>
+      Owner Dashboard
+     </small>
+    </div>
+    <div class="sidebar-footer">
+     <span class="status-dot">
+     </span>
+     <span class="sidebar-footer-text">
+      Dashboard ready
+     </span>
+    </div>
+   </aside>
+   <div class="admin-main">
+    <nav class="navbar admin-navbar navbar-expand bg-white">
+     <div class="container-fluid px-3 px-lg-4">
+      <button aria-controls="adminSidebar" aria-expanded="true" aria-label="Toggle sidebar" class="sidebar-toggle" data-sidebar-toggle="" type="button">
+       <span>
+       </span>
+       <span>
+       </span>
+       <span>
+       </span>
+      </button>
+      <a class="d-lg-none ms-2" href="index.html">
+       <img alt="Villa Caetano" class="vc-logo-navbar" src="assets/images/brand/villa-caetano/logo-black.png"/>
+      </a>
+      <form class="d-none d-md-flex ms-3 flex-grow-1" role="search">
+       <input aria-label="Search" class="form-control search-input" placeholder="Search income, expenses, issues" type="search"/>
+      </form>
+      <div class="navbar-actions ms-auto">
+       <button aria-label="Switch color theme" class="icon-button theme-toggle" data-theme-toggle="" type="button">
+        <i class="bi bi-moon-stars" data-theme-icon="">
+        </i>
+       </button>
+       <button aria-label="Export backup" class="icon-button" data-export="" title="Export backup" type="button">
+        <i class="bi bi-download">
+        </i>
+       </button>
+       <div class="dropdown">
+        <button class="profile-button dropdown-toggle" data-bs-toggle="dropdown" type="button">
+         <img alt="Villa Caetano" class="avatar-img avatar-sm" src="assets/images/brand/villa-caetano/logo-black.png"/>
+         <span class="profile-name d-none d-sm-inline">
+          Villa Caetano
+         </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+         <li>
+          <a class="dropdown-item" href="settings.html">
+           Dashboard settings
+          </a>
+         </li>
+         <li>
+          <a class="dropdown-item" href="index.html">
+           Overview
+          </a>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </nav>
+    <main class="dashboard-content">
+     <div class="container-fluid px-3 px-lg-4 py-4">
+      <div class="page-heading">
+       <div class="page-heading-copy">
+        <span class="page-icon">
+         <i class="bi bi-gear">
+         </i>
+        </span>
+        <div>
+         <p class="eyebrow mb-1">
+          Configuration
+         </p>
+         <h1 class="h3 mb-1">
+          Dashboard Settings
+         </h1>
+         <p class="text-muted mb-0">
+          Manage financial defaults, local data and dashboard users.
+         </p>
+        </div>
+       </div>
+      </div>
+      <div class="row g-3">
+       <div class="col-12 col-lg-7">
+        <div class="panel">
+         <div class="panel-header">
+          <div>
+           <h2 class="h5 mb-1 section-title">
+            <i class="bi bi-sliders">
+            </i>
+            <span>
+             Financial Defaults
+            </span>
+           </h2>
+           <p class="text-muted mb-0">
+            Changing these values does not change previous income records.
+           </p>
+          </div>
+         </div>
+         <form id="settings-form">
+          <div class="mb-3">
+           <label class="form-label">
+            Property Manager Share
+           </label>
+           <div class="input-group">
+            <input class="form-control" id="settings-manager" max="100" min="0" name="managerPercent" step="0.01" type="number"/>
+            <span class="input-group-text">
+             %
+            </span>
+           </div>
+           <div class="form-text">
+            Currently 40%, leaving 60% for the owner.
+           </div>
+          </div>
+          <div class="mb-3">
+           <label class="form-label">
+            TDS on Owner Share
+           </label>
+           <div class="input-group">
+            <input class="form-control" id="settings-tds" max="100" min="0" name="tdsPercent" step="0.01" type="number"/>
+            <span class="input-group-text">
+             %
+            </span>
+           </div>
+          </div>
+          <div class="mb-3">
+           <label class="form-label">
+            GST
+           </label>
+           <div class="input-group">
+            <input class="form-control" id="settings-gst" max="100" min="0" name="gstPercent" step="0.01" type="number"/>
+            <span class="input-group-text">
+             %
+            </span>
+           </div>
+           <div class="form-text">
+            GST is shown separately on gross property income and is not included in owner revenue calculations.
+           </div>
+          </div>
+          <div class="mb-3">
+           <label class="form-label">
+            Currency
+           </label>
+           <select class="form-select" id="settings-currency" name="currency">
+            <option value="INR">
+             Indian Rupee (INR)
+            </option>
+            <option value="GBP">
+             British Pound (GBP)
+            </option>
+            <option value="USD">
+             US Dollar (USD)
+            </option>
+           </select>
+          </div>
+          <button class="btn btn-vc" type="submit">
+           <i class="bi bi-check2">
+           </i>
+           Save Settings
+          </button>
+         </form>
+        </div>
+       </div>
+       <div class="col-12 col-lg-5">
+        <div class="panel">
+         <div class="panel-header">
+          <div>
+           <h2 class="h5 mb-1 section-title">
+            <i class="bi bi-database">
+            </i>
+            <span>
+             Data
+            </span>
+           </h2>
+           <p class="text-muted mb-0">
+            This local version stores data in your browser. Supabase can replace this storage later.
+           </p>
+          </div>
+         </div>
+         <div class="vc-inline-actions">
+          <button class="btn btn-outline-secondary" data-export="">
+           <i class="bi bi-download">
+           </i>
+           Export Backup
+          </button>
+          <button class="btn btn-outline-danger" data-reset-demo="">
+           <i class="bi bi-trash">
+           </i>
+           Clear Local Data
+          </button>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="row g-3 mt-1">
+       <div class="col-12">
+        <div class="panel">
+         <div class="panel-header">
+          <div>
+           <h2 class="h5 mb-1 section-title">
+            <i class="bi bi-people">
+            </i>
+            <span>
+             Dashboard Users
+            </span>
+           </h2>
+           <p class="text-muted mb-0">
+            Local test users for this admin. These are not secure authentication credentials yet; Supabase Auth will replace this when the dashboard is connected to the database.
+           </p>
+          </div>
+         </div>
+         <form class="row g-2 align-items-end" id="user-form">
+          <div class="col-12 col-md-4">
+           <label class="form-label">
+            Username
+           </label>
+           <input class="form-control" name="username" placeholder="e.g. caretaker" required=""/>
+          </div>
+          <div class="col-12 col-md-4">
+           <label class="form-label">
+            Password
+           </label>
+           <input class="form-control" name="password" placeholder="Password" required="" type="password"/>
+          </div>
+          <div class="col-12 col-md-2">
+           <label class="form-label">
+            Role
+           </label>
+           <select class="form-select" name="role">
+            <option value="User">
+             User
+            </option>
+            <option value="Admin">
+             Admin
+            </option>
+           </select>
+          </div>
+          <div class="col-12 col-md-2">
+           <button class="btn btn-vc w-100" type="submit">
+            <i class="bi bi-person-plus">
+            </i>
+            Add User
+           </button>
+          </div>
+         </form>
+         <div class="table-responsive mt-3">
+          <table class="table align-middle mb-0">
+           <thead>
+            <tr>
+             <th>
+              Username
+             </th>
+             <th>
+              Role
+             </th>
+             <th>
+              Created
+             </th>
+             <th class="text-end">
+             </th>
+            </tr>
+           </thead>
+           <tbody id="users-table">
+           </tbody>
+          </table>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+    <footer class="admin-footer">
+     <div class="container-fluid px-3 px-lg-4">
+      <span>
+       Villa Caetano Owner Dashboard • Goa
+      </span>
+      <span>
+       Financial overview &amp; property maintenance
+      </span>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script src="assets/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="assets/js/main.js">
+  </script>
+  <script src="assets/js/villa-caetano.js">
+  </script>
+ </body>
+</html>
