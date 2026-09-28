@@ -175,7 +175,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
 <main class="container">
 <div id="error" class="error"></div>
 <header>
-<img id="siteLogo" class="logo" src="assets/images/brand/villa-caetano/logo-black.png" alt="Villa Caetano">
+<img id="siteLogo" class="logo" src="../assets/images/brand/villa-caetano/logo-black.png" alt="Villa Caetano">
 <div class="header-right">
 <div class="header-controls">
 <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
@@ -256,8 +256,8 @@ Monthly Performance</h2>
   window.addEventListener("DOMContentLoaded", function(){
     const logo = document.getElementById("siteLogo");
     if (logo) logo.src = theme === "dark"
-      ? "assets/images/brand/villa-caetano/logo-white.png"
-      : "assets/images/brand/villa-caetano/logo-black.png";
+      ? "../assets/images/brand/villa-caetano/logo-white.png"
+      : "../assets/images/brand/villa-caetano/logo-black.png";
   });
 
   window.addEventListener("DOMContentLoaded", function(){
@@ -268,8 +268,8 @@ Monthly Performance</h2>
       const logo = document.getElementById("siteLogo");
       if (logo) {
         logo.src = dark
-          ? "assets/images/brand/villa-caetano/logo-white.png"
-          : "assets/images/brand/villa-caetano/logo-black.png";
+          ? "../assets/images/brand/villa-caetano/logo-white.png"
+          : "../assets/images/brand/villa-caetano/logo-black.png";
       }
       icon.textContent = dark ? "☀" : "☾";
       button.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
