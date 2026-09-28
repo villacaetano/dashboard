@@ -350,19 +350,13 @@ function renderDashboard(d){
  <div class="month-row"><div class="month-name">${esc(m.month_name)} ${m.year}</div>
  <div><strong>${money(m.owner_net)}</strong> <span class="muted">owner net</span></div>
  <div>${m.occupancy_rate}% occupancy</div><div>${m.bookings} booking${Number(m.bookings)===1?"":"s"}</div></div>`).join(""):`<div class="muted">No monthly data available.</div>`;
+
+ // Feed the same Supabase booking data directly into the calendar.
+ if (window.renderBookingCalendar) {
+   window.renderBookingCalendar(d.bookings || []);
+ }
 }
 loadDashboard();setInterval(loadDashboard,5*60*1000);
-</script>
-
-<script>
-window.addEventListener("load", function(){
-  try {
-    const s = document.querySelector("#bookingCalendar");
-    if(s && window.dashboardData && Array.isArray(window.dashboardData.bookings)){
-      window.renderBookingCalendar(window.dashboardData.bookings);
-    }
-  } catch(e){}
-});
 </script>
 
 <script>
