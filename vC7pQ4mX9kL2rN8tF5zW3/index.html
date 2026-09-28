@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Villa Caetano — Rental Dashboard</title>
+<style>
+:root{
+  --bg:#f5f5f2;
+  --card:#ffffff;
+  --text:#202321;
+  --muted:#777b78;
+  --border:#e5e5e0;
+  --accent:#234d3c;
+  --soft:#eaf1ed;
+  --ok:#238b57;
+  --table:#fafaf8;
+  --source-bg:#f1f2ef;
+  --source-text:#5d625e;
+  --error-bg:#fff1f0;
+  --error-border:#f0c8c5;
+  --error-text:#8b3632;
+  --shadow:0 8px 30px rgba(20,25,22,.06);
+  --radius:18px;
+}
+html[data-theme="dark"]{
+  --bg:#151816;
+  --card:#1e2421;
+  --text:#eef2ef;
+  --muted:#9ba59f;
+  --border:#343d38;
+  --accent:#9bc5af;
+  --soft:#26352d;
+  --ok:#5bc98c;
+  --table:#191e1b;
+  --source-bg:#2b332f;
+  --source-text:#c3cbc6;
+  --error-bg:#351f1e;
+  --error-border:#69413e;
+  --error-text:#f0aaa4;
+  --shadow:0 8px 30px rgba(0,0,0,.20);
+}
+*{box-sizing:border-box}
+html{color-scheme:light}
+html[data-theme="dark"]{color-scheme:dark}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  transition:background .2s ease,color .2s ease;
+}
+.container{max-width:1400px;margin:auto;padding:28px}
+header,.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  transition:background .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+header{
+  border-radius:22px;
+  padding:24px 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:22px;
+}
+.logo{width:220px;max-height:90px;object-fit:contain;object-position:left center}
+.header-right{text-align:right}
+.header-controls{display:flex;align-items:center;justify-content:flex-end;gap:12px}
+.theme-toggle{
+  width:40px;height:40px;border:1px solid var(--border);border-radius:11px;
+  background:var(--card);color:var(--text);cursor:pointer;font-size:20px;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background .2s ease,border-color .2s ease,color .2s ease,transform .15s ease;
+}
+.theme-toggle:hover{transform:translateY(-1px)}
+.status{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;
+  background:var(--soft);color:var(--accent);font-weight:700;font-size:13px
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.last-sync{color:var(--muted);font-size:12px;margin-top:8px}
+.section-title{font-size:20px;margin:28px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{border-radius:var(--radius);padding:20px}
+.metric-label{color:var(--muted);font-size:13px;margin-bottom:9px}
+.metric{font-size:27px;font-weight:750}
+.two-col{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-top:16px}
+.card-title{font-size:15px;font-weight:700;margin-bottom:16px}
+.financial-table{width:100%;border-collapse:collapse;font-size:13px}
+.financial-table td{padding:9px 0;border-bottom:1px solid var(--border)}
+.financial-table td:last-child{text-align:right;font-weight:650}
+.financial-table .total td{font-size:15px;font-weight:800;border-bottom:0;padding-top:13px}
+.calendar{display:grid;gap:10px}
+.calendar-item{
+  display:grid;grid-template-columns:115px 1fr auto;gap:15px;align-items:center;
+  padding:15px;border:1px solid var(--border);border-radius:13px;background:var(--table)
+}
+.calendar-date{font-weight:750;color:var(--accent)}
+.calendar-guest{font-weight:700}
+.booking-details{color:var(--muted);font-size:13px;margin-top:6px}
+.booking-price{font-weight:750}
+.source{
+  display:inline-block;margin-top:8px;padding:4px 8px;border-radius:7px;
+  background:var(--source-bg);color:var(--source-text);font-size:11px;font-weight:650
+}
+.month-row{
+  display:grid;grid-template-columns:130px 1fr 110px 100px;gap:12px;padding:12px 0;
+  border-bottom:1px solid var(--border);align-items:center;font-size:13px
+}
+.month-row:last-child{border-bottom:0}
+.month-name{font-weight:700}
+.muted{color:var(--muted)}
+.error{
+  display:none;background:var(--error-bg);border:1px solid var(--error-border);color:var(--error-text);
+  padding:14px;border-radius:12px;margin-bottom:16px;font-size:13px
+}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
+@media(max-width:950px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .month-row{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .container{padding:14px}
+  header{padding:18px;flex-direction:column;align-items:flex-start}
+  .header-right{text-align:left;width:100%}
+  .header-controls{justify-content:flex-start}
+  .logo{width:190px}
+  .grid{gap:10px}
+  .card{padding:15px}
+  .metric{font-size:21px}
+  .calendar-item{grid-template-columns:1fr;gap:5px}
+  .month-row{grid-template-columns:1fr}
+}
+
+.booking-calendar-card{margin-top:16px}
+.calendar-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.cal-month-title{font-size:18px;font-weight:750}
+.cal-btn{
+  width:36px;height:36px;border:1px solid var(--border);border-radius:10px;
+  background:var(--card);color:var(--text);font-size:23px;line-height:1;cursor:pointer
+}
+.booking-calendar{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.cal-weekday{padding:10px 8px;background:var(--table);color:var(--muted);font-size:11px;font-weight:750;text-transform:uppercase;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.cal-day{
+  min-height:105px;padding:8px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:var(--card);position:relative
+}
+.cal-day.empty{background:var(--table)}
+.cal-number{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}
+.cal-day.today .cal-number{color:var(--accent)}
+.cal-booking{
+  display:block;margin-top:4px;padding:5px 6px;border-radius:7px;
+  background:var(--soft);color:var(--accent);font-size:10px;font-weight:700;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.cal-booking.checkin{border-left:3px solid var(--ok)}
+.cal-booking.checkout{opacity:.72}
+.calendar-legend{display:flex;gap:18px;margin-top:12px;color:var(--muted);font-size:11px}
+.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:5px}
+.legend-dot.checkin{background:var(--ok)}
+.legend-dot.checkout{opacity:.55}
+@media(max-width:700px){
+  .cal-day{min-height:78px;padding:5px}
+  .cal-booking{font-size:9px;padding:4px}
+  .cal-weekday{font-size:9px;padding:7px 3px}
+}
+
+</style>
+</head>
+<body>
+<main class="container">
+<div id="error" class="error"></div>
+<header>
+<img id="siteLogo" class="logo" src="../assets/images/brand/villa-caetano/logo-black.png" alt="Villa Caetano">
+<div class="header-right">
+<div class="header-controls">
+<button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+<span id="themeIcon">☾</span>
+</button>
+<div>
+<div id="status" class="status"><span class="dot"></span><span>Loading...</span></div>
+<div id="lastSync" class="last-sync">Loading data...</div>
+</div>
+</div>
+</div>
+</header>
+
+<h2 class="section-title">Overview</h2>
+<section class="grid">
+<div class="card"><div class="metric-label">Owner Net — This Month</div><div id="ownerNet" class="metric">—</div></div>
+<div class="card"><div class="metric-label">Revenue ex-GST</div><div id="revenue" class="metric">—</div></div>
+<div class="card"><div class="metric-label">Occupancy</div><div id="occupancy" class="metric">—</div></div>
+<div class="card"><div class="metric-label">Bookings</div><div id="bookingCount" class="metric">—</div></div>
+</section>
+
+<section class="two-col">
+<div class="card">
+<div class="card-title" id="monthTitle">Financial Overview</div>
+<table class="financial-table">
+<tr><td>Revenue ex-GST</td><td id="fRevenue">—</td></tr>
+<tr><td>GST</td><td id="fGst">—</td></tr>
+<tr><td>Gross including GST</td><td id="fGross">—</td></tr>
+<tr><td>Manager 40%</td><td id="fManager">—</td></tr>
+<tr><td>Owner 60%</td><td id="fOwner">—</td></tr>
+<tr><td>TDS</td><td id="fTds">—</td></tr>
+<tr class="total"><td>Owner Net</td><td id="fNet">—</td></tr>
+</table>
+</div>
+<div class="card">
+<div class="card-title">Current Financial Year</div>
+<table class="financial-table">
+<tr><td>Financial Year</td><td id="fyName">—</td></tr>
+<tr><td>Revenue ex-GST</td><td id="fyRevenue">—</td></tr>
+<tr><td>Owner Net</td><td id="fyNet">—</td></tr>
+<tr><td>Occupancy</td><td id="fyOccupancy">—</td></tr>
+<tr><td>Bookings</td><td id="fyBookings">—</td></tr>
+<tr><td>Occupied Nights</td><td id="fyNights">—</td></tr>
+</table>
+</div>
+</section>
+
+<h2 class="section-title">Upcoming Bookings</h2>
+<section class="card"><div id="upcoming" class="calendar"></div></section>
+
+<h2 class="section-title">
+<section class="section-title">Booking Calendar</section>
+<div class="card booking-calendar-card">
+  <div class="calendar-toolbar">
+    <button id="calPrev" class="cal-btn" type="button">‹</button>
+    <div id="calMonth" class="cal-month-title"></div>
+    <button id="calNext" class="cal-btn" type="button">›</button>
+  </div>
+  <div class="booking-calendar" id="bookingCalendar"></div>
+  <div class="calendar-legend">
+    <span><i class="legend-dot booked"></i> Booking</span>
+    <span><i class="legend-dot checkin"></i> Check-in</span>
+    <span><i class="legend-dot checkout"></i> Check-out</span>
+  </div>
+</div>
+Monthly Performance</h2>
+<section class="card"><div id="monthly"></div></section>
+
+<footer>Villa Caetano · Rental Dashboard</footer>
+</main>
+
+<script>
+(function(){
+  const saved = localStorage.getItem("vc-theme");
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const theme = saved || (prefersDark ? "dark" : "light");
+  document.documentElement.setAttribute("data-theme", theme);
+  window.addEventListener("DOMContentLoaded", function(){
+    const logo = document.getElementById("siteLogo");
+    if (logo) logo.src = theme === "dark"
+      ? "../assets/images/brand/villa-caetano/logo-white.png"
+      : "../assets/images/brand/villa-caetano/logo-black.png";
+  });
+
+  window.addEventListener("DOMContentLoaded", function(){
+    const button = document.getElementById("themeToggle");
+    const icon = document.getElementById("themeIcon");
+    function updateIcon(){
+      const dark = document.documentElement.getAttribute("data-theme") === "dark";
+      const logo = document.getElementById("siteLogo");
+      if (logo) {
+        logo.src = dark
+          ? "../assets/images/brand/villa-caetano/logo-white.png"
+          : "../assets/images/brand/villa-caetano/logo-black.png";
+      }
+      icon.textContent = dark ? "☀" : "☾";
+      button.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+      button.title = dark ? "Switch to light theme" : "Switch to dark theme";
+    }
+    updateIcon();
+    button.addEventListener("click", function(){
+      const dark = document.documentElement.getAttribute("data-theme") === "dark";
+      const next = dark ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("vc-theme", next);
+      updateIcon();
+    });
+  });
+})();
+</script>
+<script>
+const SUPABASE_URL=
+"https://xmpnwjsqisdvwpoyrgnv.supabase.co";
+const SUPABASE_KEY="sb_publishable_zxOKE_9GzAg0qXfMXxY6iw__KFKMih6";
+const RPC_URL=`${SUPABASE_URL}/rest/v1/rpc/get_villa_caetano_dashboard`;
+
+const money=v=>"₹"+Number(v||0).toLocaleString("en-IN",{maximumFractionDigits:0});
+const dateShort=v=>{if(!v)return"—";return new Date(v+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"})};
+const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+
+async function loadDashboard(){
+ try{
+  const r=await fetch(RPC_URL,{method:"POST",headers:{"apikey":SUPABASE_KEY,"Authorization":`Bearer ${SUPABASE_KEY}`,"Content-Type":"application/json"},body:"{}"});
+  if(!r.ok)throw new Error(`Supabase returned HTTP ${r.status}`);
+  renderDashboard(await r.json());
+ }catch(e){
+  console.error(e);
+  const box=document.getElementById("error");box.style.display="block";
+  box.textContent="Unable to load Villa Caetano data. Check the Supabase URL/key and RPC permissions.";
+ }
+}
+
+function renderDashboard(d){
+ const status=document.getElementById("status");
+ status.innerHTML=d.occupied&&d.current?`<span class="dot"></span> OCCUPIED · ${esc(d.current.guest)}`:`<span class="dot"></span> VACANT`;
+
+ if(d.last_sync?.completed_at){
+  const x=new Date(d.last_sync.completed_at);
+  document.getElementById("lastSync").textContent=`Last synced ${x.toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})} · ${d.last_sync.records_processed||0} bookings`;
+ }else document.getElementById("lastSync").textContent="Last sync unavailable";
+
+ const currentKey=new Date().toISOString().slice(0,7),m=d.months?.[currentKey];
+ if(m){
+  ownerNet.textContent=money(m.owner_net);revenue.textContent=money(m.nbv);
+  occupancy.textContent=`${m.occupancy_rate}%`;bookingCount.textContent=m.bookings;
+  monthTitle.textContent=`Financial Overview · ${m.month_name} ${m.year}`;
+  fRevenue.textContent=money(m.nbv);fGst.textContent=money(m.gst);fGross.textContent=money(m.gross_including_gst);
+  fManager.textContent=money(m.manager_40);fOwner.textContent=money(m.owner_60);fTds.textContent=money(m.tds);fNet.textContent=money(m.owner_net);
+ }
+
+ const now=new Date();
+ const fyKey=now.getMonth()>=3?`FY ${now.getFullYear()}-${String(now.getFullYear()+1).slice(-2)}`:`FY ${now.getFullYear()-1}-${String(now.getFullYear()).slice(-2)}`;
+ const fy=d.financial_years?.[fyKey];
+ if(fy){
+  fyName.textContent=fy.financial_year;fyRevenue.textContent=money(fy.nbv);fyNet.textContent=money(fy.owner_net);
+  fyOccupancy.textContent=`${fy.occupancy_rate}%`;fyBookings.textContent=fy.bookings;fyNights.textContent=fy.occupied_nights;
+ }
+
+ const today=new Date().toISOString().slice(0,10);
+ const upcoming=(d.bookings||[]).filter(b=>b.check_in>=today).sort((a,b)=>a.check_in.localeCompare(b.check_in));
+ document.getElementById("upcoming").innerHTML=upcoming.length?upcoming.map(b=>`
+ <div class="calendar-item">
+  <div class="calendar-date">${dateShort(b.check_in)}</div>
+  <div><div class="calendar-guest">${esc(b.guest)}</div>
+  <div class="booking-details">${dateShort(b.check_in)} → ${dateShort(b.check_out)} · ${b.nights} night${Number(b.nights)===1?"":"s"} · ${b.adults} adults${Number(b.kids)?` · ${b.kids} kids`:""}</div>
+  <span class="source">${esc(b.source)}</span></div>
+  <div class="booking-price">${money(b.nbv)}</div>
+ </div>`).join(""):`<div class="muted">No upcoming bookings.</div>`;
+
+ const months=Object.values(d.months||{}).sort((a,b)=>`${a.year}-${String(a.month).padStart(2,"0")}`.localeCompare(`${b.year}-${String(b.month).padStart(2,"0")}`));
+ document.getElementById("monthly").innerHTML=months.length?months.map(m=>`
+ <div class="month-row"><div class="month-name">${esc(m.month_name)} ${m.year}</div>
+ <div><strong>${money(m.owner_net)}</strong> <span class="muted">owner net</span></div>
+ <div>${m.occupancy_rate}% occupancy</div><div>${m.bookings} booking${Number(m.bookings)===1?"":"s"}</div></div>`).join(""):`<div class="muted">No monthly data available.</div>`;
+
+ // Feed the same Supabase booking data directly into the calendar.
+ if (window.renderBookingCalendar) {
+   window.renderBookingCalendar(d.bookings || []);
+ }
+}
+loadDashboard();setInterval(loadDashboard,5*60*1000);
+</script>
+
+<script>
+(function(){
+  let calendarDate = new Date();
+  let bookingData = [];
+
+  function parseLocalDate(s){
+    const p = String(s).split("-");
+    return new Date(Number(p[0]), Number(p[1])-1, Number(p[2]));
+  }
+  function dateKey(d){
+    return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  }
+  function esc(s){
+    return String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  window.renderBookingCalendar = function(bookings){
+    bookingData = Array.isArray(bookings) ? bookings : [];
+    const root = document.getElementById("bookingCalendar");
+    const title = document.getElementById("calMonth");
+    if(!root || !title) return;
+
+    const y = calendarDate.getFullYear();
+    const m = calendarDate.getMonth();
+    title.textContent = calendarDate.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+
+    const first = new Date(y,m,1);
+    const days = new Date(y,m+1,0).getDate();
+    const offset = (first.getDay()+6)%7; // Monday first
+    const today = dateKey(new Date());
+
+    let out = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+      .map(x=>`<div class="cal-weekday">${x}</div>`).join("");
+
+    for(let i=0;i<offset;i++) out += `<div class="cal-day empty"></div>`;
+
+    for(let d=1;d<=days;d++){
+      const date = new Date(y,m,d);
+      const key = dateKey(date);
+      const events = bookingData.filter(b => {
+        if(!b.check_in || !b.check_out) return false;
+        return key >= b.check_in && key < b.check_out;
+      });
+      const checkins = bookingData.filter(b => b.check_in === key);
+      const checkouts = bookingData.filter(b => b.check_out === key);
+
+      let content = `<div class="cal-number">${d}</div>`;
+      events.slice(0,3).forEach(b=>{
+        const ci = b.check_in === key;
+        content += `<div class="cal-booking ${ci?'checkin':''}" title="${esc(b.guest)} · ${esc(b.check_in)} → ${esc(b.check_out)}">${esc(b.guest)}</div>`;
+      });
+      if(events.length > 3) content += `<div class="muted" style="font-size:10px;margin-top:3px">+${events.length-3} more</div>`;
+
+      if(checkins.length && !events.some(b=>b.check_in===key)){
+        checkins.slice(0,2).forEach(b=>content += `<div class="cal-booking checkin">↘ ${esc(b.guest)}</div>`);
+      }
+      if(checkouts.length){
+        checkouts.slice(0,2).forEach(b=>content += `<div class="cal-booking checkout">↗ ${esc(b.guest)}</div>`);
+      }
+
+      out += `<div class="cal-day ${key===today?'today':''}">${content}</div>`;
+    }
+    root.innerHTML = out;
+  };
+
+  document.addEventListener("DOMContentLoaded",()=>{
+    document.getElementById("calPrev")?.addEventListener("click",()=>{
+      calendarDate.setMonth(calendarDate.getMonth()-1);
+      window.renderBookingCalendar(bookingData);
+    });
+    document.getElementById("calNext")?.addEventListener("click",()=>{
+      calendarDate.setMonth(calendarDate.getMonth()+1);
+      window.renderBookingCalendar(bookingData);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
