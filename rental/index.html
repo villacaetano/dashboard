@@ -135,6 +135,40 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
   .calendar-item{grid-template-columns:1fr;gap:5px}
   .month-row{grid-template-columns:1fr}
 }
+
+.booking-calendar-card{margin-top:16px}
+.calendar-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.cal-month-title{font-size:18px;font-weight:750}
+.cal-btn{
+  width:36px;height:36px;border:1px solid var(--border);border-radius:10px;
+  background:var(--card);color:var(--text);font-size:23px;line-height:1;cursor:pointer
+}
+.booking-calendar{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.cal-weekday{padding:10px 8px;background:var(--table);color:var(--muted);font-size:11px;font-weight:750;text-transform:uppercase;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.cal-day{
+  min-height:105px;padding:8px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:var(--card);position:relative
+}
+.cal-day.empty{background:var(--table)}
+.cal-number{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:5px}
+.cal-day.today .cal-number{color:var(--accent)}
+.cal-booking{
+  display:block;margin-top:4px;padding:5px 6px;border-radius:7px;
+  background:var(--soft);color:var(--accent);font-size:10px;font-weight:700;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.cal-booking.checkin{border-left:3px solid var(--ok)}
+.cal-booking.checkout{opacity:.72}
+.calendar-legend{display:flex;gap:18px;margin-top:12px;color:var(--muted);font-size:11px}
+.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:5px}
+.legend-dot.checkin{background:var(--ok)}
+.legend-dot.checkout{opacity:.55}
+@media(max-width:700px){
+  .cal-day{min-height:78px;padding:5px}
+  .cal-booking{font-size:9px;padding:4px}
+  .cal-weekday{font-size:9px;padding:7px 3px}
+}
+
 </style>
 </head>
 <body>
@@ -192,7 +226,22 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
 <h2 class="section-title">Upcoming Bookings</h2>
 <section class="card"><div id="upcoming" class="calendar"></div></section>
 
-<h2 class="section-title">Monthly Performance</h2>
+<h2 class="section-title">
+<section class="section-title">Booking Calendar</section>
+<div class="card booking-calendar-card">
+  <div class="calendar-toolbar">
+    <button id="calPrev" class="cal-btn" type="button">‹</button>
+    <div id="calMonth" class="cal-month-title"></div>
+    <button id="calNext" class="cal-btn" type="button">›</button>
+  </div>
+  <div class="booking-calendar" id="bookingCalendar"></div>
+  <div class="calendar-legend">
+    <span><i class="legend-dot booked"></i> Booking</span>
+    <span><i class="legend-dot checkin"></i> Check-in</span>
+    <span><i class="legend-dot checkout"></i> Check-out</span>
+  </div>
+</div>
+Monthly Performance</h2>
 <section class="card"><div id="monthly"></div></section>
 
 <footer>Villa Caetano · Rental Dashboard</footer>
@@ -292,5 +341,95 @@ function renderDashboard(d){
 }
 loadDashboard();setInterval(loadDashboard,5*60*1000);
 </script>
+
+<script>
+window.addEventListener("load", function(){
+  try {
+    const s = document.querySelector("#bookingCalendar");
+    if(s && window.dashboardData && Array.isArray(window.dashboardData.bookings)){
+      window.renderBookingCalendar(window.dashboardData.bookings);
+    }
+  } catch(e){}
+});
+</script>
+
+<script>
+(function(){
+  let calendarDate = new Date();
+  let bookingData = [];
+
+  function parseLocalDate(s){
+    const p = String(s).split("-");
+    return new Date(Number(p[0]), Number(p[1])-1, Number(p[2]));
+  }
+  function dateKey(d){
+    return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  }
+  function esc(s){
+    return String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  window.renderBookingCalendar = function(bookings){
+    bookingData = Array.isArray(bookings) ? bookings : [];
+    const root = document.getElementById("bookingCalendar");
+    const title = document.getElementById("calMonth");
+    if(!root || !title) return;
+
+    const y = calendarDate.getFullYear();
+    const m = calendarDate.getMonth();
+    title.textContent = calendarDate.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+
+    const first = new Date(y,m,1);
+    const days = new Date(y,m+1,0).getDate();
+    const offset = (first.getDay()+6)%7; // Monday first
+    const today = dateKey(new Date());
+
+    let out = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+      .map(x=>`<div class="cal-weekday">${x}</div>`).join("");
+
+    for(let i=0;i<offset;i++) out += `<div class="cal-day empty"></div>`;
+
+    for(let d=1;d<=days;d++){
+      const date = new Date(y,m,d);
+      const key = dateKey(date);
+      const events = bookingData.filter(b => {
+        if(!b.check_in || !b.check_out) return false;
+        return key >= b.check_in && key < b.check_out;
+      });
+      const checkins = bookingData.filter(b => b.check_in === key);
+      const checkouts = bookingData.filter(b => b.check_out === key);
+
+      let content = `<div class="cal-number">${d}</div>`;
+      events.slice(0,3).forEach(b=>{
+        const ci = b.check_in === key;
+        content += `<div class="cal-booking ${ci?'checkin':''}" title="${esc(b.guest)} · ${esc(b.check_in)} → ${esc(b.check_out)}">${esc(b.guest)}</div>`;
+      });
+      if(events.length > 3) content += `<div class="muted" style="font-size:10px;margin-top:3px">+${events.length-3} more</div>`;
+
+      if(checkins.length && !events.some(b=>b.check_in===key)){
+        checkins.slice(0,2).forEach(b=>content += `<div class="cal-booking checkin">↘ ${esc(b.guest)}</div>`);
+      }
+      if(checkouts.length){
+        checkouts.slice(0,2).forEach(b=>content += `<div class="cal-booking checkout">↗ ${esc(b.guest)}</div>`);
+      }
+
+      out += `<div class="cal-day ${key===today?'today':''}">${content}</div>`;
+    }
+    root.innerHTML = out;
+  };
+
+  document.addEventListener("DOMContentLoaded",()=>{
+    document.getElementById("calPrev")?.addEventListener("click",()=>{
+      calendarDate.setMonth(calendarDate.getMonth()-1);
+      window.renderBookingCalendar(bookingData);
+    });
+    document.getElementById("calNext")?.addEventListener("click",()=>{
+      calendarDate.setMonth(calendarDate.getMonth()+1);
+      window.renderBookingCalendar(bookingData);
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
