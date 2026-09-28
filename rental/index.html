@@ -3,31 +3,138 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Villa Caetano — Owner Dashboard</title>
+<title>Villa Caetano — Rental Dashboard</title>
 <style>
-:root{--bg:#f5f5f2;--card:#fff;--text:#202321;--muted:#777b78;--border:#e5e5e0;--accent:#234d3c;--soft:#eaf1ed;--ok:#238b57;--radius:18px}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+:root{
+  --bg:#f5f5f2;
+  --card:#ffffff;
+  --text:#202321;
+  --muted:#777b78;
+  --border:#e5e5e0;
+  --accent:#234d3c;
+  --soft:#eaf1ed;
+  --ok:#238b57;
+  --table:#fafaf8;
+  --source-bg:#f1f2ef;
+  --source-text:#5d625e;
+  --error-bg:#fff1f0;
+  --error-border:#f0c8c5;
+  --error-text:#8b3632;
+  --shadow:0 8px 30px rgba(20,25,22,.06);
+  --radius:18px;
+}
+html[data-theme="dark"]{
+  --bg:#151816;
+  --card:#1e2421;
+  --text:#eef2ef;
+  --muted:#9ba59f;
+  --border:#343d38;
+  --accent:#9bc5af;
+  --soft:#26352d;
+  --ok:#5bc98c;
+  --table:#191e1b;
+  --source-bg:#2b332f;
+  --source-text:#c3cbc6;
+  --error-bg:#351f1e;
+  --error-border:#69413e;
+  --error-text:#f0aaa4;
+  --shadow:0 8px 30px rgba(0,0,0,.20);
+}
+*{box-sizing:border-box}
+html{color-scheme:light}
+html[data-theme="dark"]{color-scheme:dark}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  transition:background .2s ease,color .2s ease;
+}
 .container{max-width:1400px;margin:auto;padding:28px}
-header,.card{background:var(--card);border:1px solid var(--border);box-shadow:0 8px 30px rgba(20,25,22,.06)}
-header{border-radius:22px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:22px}
-.logo{width:220px;max-height:90px;object-fit:contain;object-position:left center}.header-right{text-align:right}
-.status{display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;background:var(--soft);color:var(--accent);font-weight:700;font-size:13px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}.last-sync{color:var(--muted);font-size:12px;margin-top:8px}
-.section-title{font-size:20px;margin:28px 0 12px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.card{border-radius:var(--radius);padding:20px}.metric-label{color:var(--muted);font-size:13px;margin-bottom:9px}
-.metric{font-size:27px;font-weight:750}.two-col{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-top:16px}
-.card-title{font-size:15px;font-weight:700;margin-bottom:16px}.financial-table{width:100%;border-collapse:collapse;font-size:13px}
-.financial-table td{padding:9px 0;border-bottom:1px solid var(--border)}.financial-table td:last-child{text-align:right;font-weight:650}
+header,.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  transition:background .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+header{
+  border-radius:22px;
+  padding:24px 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:22px;
+}
+.logo{width:220px;max-height:90px;object-fit:contain;object-position:left center}
+.header-right{text-align:right}
+.header-controls{display:flex;align-items:center;justify-content:flex-end;gap:12px}
+.theme-toggle{
+  width:40px;height:40px;border:1px solid var(--border);border-radius:11px;
+  background:var(--card);color:var(--text);cursor:pointer;font-size:20px;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background .2s ease,border-color .2s ease,color .2s ease,transform .15s ease;
+}
+.theme-toggle:hover{transform:translateY(-1px)}
+.status{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;
+  background:var(--soft);color:var(--accent);font-weight:700;font-size:13px
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.last-sync{color:var(--muted);font-size:12px;margin-top:8px}
+.section-title{font-size:20px;margin:28px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{border-radius:var(--radius);padding:20px}
+.metric-label{color:var(--muted);font-size:13px;margin-bottom:9px}
+.metric{font-size:27px;font-weight:750}
+.two-col{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-top:16px}
+.card-title{font-size:15px;font-weight:700;margin-bottom:16px}
+.financial-table{width:100%;border-collapse:collapse;font-size:13px}
+.financial-table td{padding:9px 0;border-bottom:1px solid var(--border)}
+.financial-table td:last-child{text-align:right;font-weight:650}
 .financial-table .total td{font-size:15px;font-weight:800;border-bottom:0;padding-top:13px}
-.calendar{display:grid;gap:10px}.calendar-item{display:grid;grid-template-columns:115px 1fr auto;gap:15px;align-items:center;padding:15px;border:1px solid var(--border);border-radius:13px;background:#fafaf8}
-.calendar-date{font-weight:750;color:var(--accent)}.calendar-guest{font-weight:700}.booking-details{color:var(--muted);font-size:13px;margin-top:6px}
-.source{display:inline-block;margin-top:8px;padding:4px 8px;border-radius:7px;background:#f1f2ef;color:#5d625e;font-size:11px;font-weight:650}
-.month-row{display:grid;grid-template-columns:130px 1fr 110px 100px;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);align-items:center;font-size:13px}
-.month-row:last-child{border-bottom:0}.month-name{font-weight:700}.muted{color:var(--muted)}
-.error{display:none;background:#fff1f0;border:1px solid #f0c8c5;color:#8b3632;padding:14px;border-radius:12px;margin-bottom:16px;font-size:13px}
+.calendar{display:grid;gap:10px}
+.calendar-item{
+  display:grid;grid-template-columns:115px 1fr auto;gap:15px;align-items:center;
+  padding:15px;border:1px solid var(--border);border-radius:13px;background:var(--table)
+}
+.calendar-date{font-weight:750;color:var(--accent)}
+.calendar-guest{font-weight:700}
+.booking-details{color:var(--muted);font-size:13px;margin-top:6px}
+.booking-price{font-weight:750}
+.source{
+  display:inline-block;margin-top:8px;padding:4px 8px;border-radius:7px;
+  background:var(--source-bg);color:var(--source-text);font-size:11px;font-weight:650
+}
+.month-row{
+  display:grid;grid-template-columns:130px 1fr 110px 100px;gap:12px;padding:12px 0;
+  border-bottom:1px solid var(--border);align-items:center;font-size:13px
+}
+.month-row:last-child{border-bottom:0}
+.month-name{font-weight:700}
+.muted{color:var(--muted)}
+.error{
+  display:none;background:var(--error-bg);border:1px solid var(--error-border);color:var(--error-text);
+  padding:14px;border-radius:12px;margin-bottom:16px;font-size:13px
+}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
-@media(max-width:950px){.grid{grid-template-columns:repeat(2,1fr)}.two-col{grid-template-columns:1fr}.month-row{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.container{padding:14px}header{padding:18px;flex-direction:column;align-items:flex-start}.header-right{text-align:left}.logo{width:190px}.grid{gap:10px}.card{padding:15px}.metric{font-size:21px}.calendar-item{grid-template-columns:1fr;gap:5px}.month-row{grid-template-columns:1fr}}
+@media(max-width:950px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .two-col{grid-template-columns:1fr}
+  .month-row{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .container{padding:14px}
+  header{padding:18px;flex-direction:column;align-items:flex-start}
+  .header-right{text-align:left;width:100%}
+  .header-controls{justify-content:flex-start}
+  .logo{width:190px}
+  .grid{gap:10px}
+  .card{padding:15px}
+  .metric{font-size:21px}
+  .calendar-item{grid-template-columns:1fr;gap:5px}
+  .month-row{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -36,8 +143,15 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
 <header>
 <img class="logo" src="https://villacaetano.com/assets/img/logo.png" alt="Villa Caetano">
 <div class="header-right">
+<div class="header-controls">
+<button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+<span id="themeIcon">☾</span>
+</button>
+<div>
 <div id="status" class="status"><span class="dot"></span><span>Loading...</span></div>
 <div id="lastSync" class="last-sync">Loading data...</div>
+</div>
+</div>
 </div>
 </header>
 
@@ -81,11 +195,39 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
 <h2 class="section-title">Monthly Performance</h2>
 <section class="card"><div id="monthly"></div></section>
 
-<footer>Villa Caetano · Owner Dashboard</footer>
+<footer>Villa Caetano · Rental Dashboard</footer>
 </main>
 
 <script>
-const SUPABASE_URL="https://xmpnwjsqisdvwpoyrgnv.supabase.co";
+(function(){
+  const saved = localStorage.getItem("vc-theme");
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const theme = saved || (prefersDark ? "dark" : "light");
+  document.documentElement.setAttribute("data-theme", theme);
+
+  window.addEventListener("DOMContentLoaded", function(){
+    const button = document.getElementById("themeToggle");
+    const icon = document.getElementById("themeIcon");
+    function updateIcon(){
+      const dark = document.documentElement.getAttribute("data-theme") === "dark";
+      icon.textContent = dark ? "☀" : "☾";
+      button.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+      button.title = dark ? "Switch to light theme" : "Switch to dark theme";
+    }
+    updateIcon();
+    button.addEventListener("click", function(){
+      const dark = document.documentElement.getAttribute("data-theme") === "dark";
+      const next = dark ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("vc-theme", next);
+      updateIcon();
+    });
+  });
+})();
+</script>
+<script>
+const SUPABASE_URL=
+"https://xmpnwjsqisdvwpoyrgnv.supabase.co";
 const SUPABASE_KEY="sb_publishable_zxOKE_9GzAg0qXfMXxY6iw__KFKMih6";
 const RPC_URL=`${SUPABASE_URL}/rest/v1/rpc/get_villa_caetano_dashboard`;
 
