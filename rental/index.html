@@ -175,7 +175,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
 <main class="container">
 <div id="error" class="error"></div>
 <header>
-<img class="logo" src="https://villacaetano.com/assets/img/logo.png" alt="Villa Caetano">
+<img id="siteLogo" class="logo" src="assets/images/brand/villa-caetano/logo-black.png" alt="Villa Caetano">
 <div class="header-right">
 <div class="header-controls">
 <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
@@ -253,12 +253,24 @@ Monthly Performance</h2>
   const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
   const theme = saved || (prefersDark ? "dark" : "light");
   document.documentElement.setAttribute("data-theme", theme);
+  window.addEventListener("DOMContentLoaded", function(){
+    const logo = document.getElementById("siteLogo");
+    if (logo) logo.src = theme === "dark"
+      ? "assets/images/brand/villa-caetano/logo-white.png"
+      : "assets/images/brand/villa-caetano/logo-black.png";
+  });
 
   window.addEventListener("DOMContentLoaded", function(){
     const button = document.getElementById("themeToggle");
     const icon = document.getElementById("themeIcon");
     function updateIcon(){
       const dark = document.documentElement.getAttribute("data-theme") === "dark";
+      const logo = document.getElementById("siteLogo");
+      if (logo) {
+        logo.src = dark
+          ? "assets/images/brand/villa-caetano/logo-white.png"
+          : "assets/images/brand/villa-caetano/logo-black.png";
+      }
       icon.textContent = dark ? "☀" : "☾";
       button.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
       button.title = dark ? "Switch to light theme" : "Switch to dark theme";
