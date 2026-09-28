@@ -77,10 +77,10 @@ header{
 }
 .theme-toggle:hover{transform:translateY(-1px)}
 .status{
-  display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;
-  background:var(--soft);color:var(--accent);font-weight:700;font-size:13px
+  display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border-radius:999px;
+  background:var(--soft);color:var(--accent);font-weight:800;font-size:15px;letter-spacing:.1px
 }
-.dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px rgba(35,139,87,.12)}
 .last-sync{color:var(--muted);font-size:12px;margin-top:8px}
 .section-title{font-size:20px;margin:28px 0 12px}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -169,6 +169,24 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
   .cal-weekday{font-size:9px;padding:7px 3px}
 }
 
+
+.calendar-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px}
+.calendar-scroll::-webkit-scrollbar{height:6px}
+.booking-calendar{min-width:700px}
+.cal-day{min-height:112px}
+.cal-booking{font-size:10px;line-height:1.25}
+.cal-booking.stay{background:var(--accent);color:var(--card);font-weight:800}
+.cal-booking.checkin{background:var(--accent);color:var(--card);border-left:4px solid var(--ok);font-weight:850}
+.cal-booking.checkout{background:var(--source-bg);color:var(--source-text);opacity:.8;font-weight:600;border-left:3px solid var(--border)}
+@media(max-width:600px){
+  .container{padding:12px}
+  .section-title{font-size:18px;margin-top:22px}
+  .status{font-size:14px;padding:9px 13px}
+  .booking-calendar{min-width:700px}
+  .cal-day{min-height:92px}
+  .cal-number{font-size:11px}
+  .calendar-legend{gap:10px;flex-wrap:wrap}
+}
 </style>
 </head>
 <body>
@@ -189,9 +207,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
 </div>
 </header>
 
-<h2 class="section-title">Overview</h2>
+<h2 class="section-title" id="overviewTitle">Current Month Overview</h2>
 <section class="grid">
-<div class="card"><div class="metric-label">Owner Net — This Month</div><div id="ownerNet" class="metric">—</div></div>
+<div class="card"><div class="metric-label">Owner Net</div><div id="ownerNet" class="metric">—</div></div>
 <div class="card"><div class="metric-label">Revenue ex-GST</div><div id="revenue" class="metric">—</div></div>
 <div class="card"><div class="metric-label">Occupancy</div><div id="occupancy" class="metric">—</div></div>
 <div class="card"><div class="metric-label">Bookings</div><div id="bookingCount" class="metric">—</div></div>
@@ -226,7 +244,6 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
 <h2 class="section-title">Upcoming Bookings</h2>
 <section class="card"><div id="upcoming" class="calendar"></div></section>
 
-<h2 class="section-title">
 <section class="section-title">Booking Calendar</section>
 <div class="card booking-calendar-card">
   <div class="calendar-toolbar">
@@ -234,14 +251,15 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 0 10px}
     <div id="calMonth" class="cal-month-title"></div>
     <button id="calNext" class="cal-btn" type="button">›</button>
   </div>
-  <div class="booking-calendar" id="bookingCalendar"></div>
+  <div class="calendar-scroll"><div class="booking-calendar" id="bookingCalendar"></div></div>
   <div class="calendar-legend">
     <span><i class="legend-dot booked"></i> Booking</span>
     <span><i class="legend-dot checkin"></i> Check-in</span>
     <span><i class="legend-dot checkout"></i> Check-out</span>
   </div>
 </div>
-Monthly Performance</h2>
+
+<h2 class="section-title">Monthly Performance</h2>
 <section class="card"><div id="monthly"></div></section>
 
 <footer>Villa Caetano · Rental Dashboard</footer>
@@ -321,7 +339,8 @@ function renderDashboard(d){
  if(m){
   ownerNet.textContent=money(m.owner_net);revenue.textContent=money(m.nbv);
   occupancy.textContent=`${m.occupancy_rate}%`;bookingCount.textContent=m.bookings;
-  monthTitle.textContent=`Financial Overview · ${m.month_name} ${m.year}`;
+  monthTitle.textContent=`${m.month_name} ${m.year} Financial Overview`;
+  document.getElementById("overviewTitle").textContent=`${m.month_name} ${m.year} Overview`;
   fRevenue.textContent=money(m.nbv);fGst.textContent=money(m.gst);fGross.textContent=money(m.gross_including_gst);
   fManager.textContent=money(m.manager_40);fOwner.textContent=money(m.owner_60);fTds.textContent=money(m.tds);fNet.textContent=money(m.owner_net);
  }
@@ -398,7 +417,7 @@ loadDashboard();setInterval(loadDashboard,5*60*1000);
     for(let d=1;d<=days;d++){
       const date = new Date(y,m,d);
       const key = dateKey(date);
-      const events = bookingData.filter(b => {
+      const staying = bookingData.filter(b => {
         if(!b.check_in || !b.check_out) return false;
         return key >= b.check_in && key < b.check_out;
       });
@@ -406,15 +425,13 @@ loadDashboard();setInterval(loadDashboard,5*60*1000);
       const checkouts = bookingData.filter(b => b.check_out === key);
 
       let content = `<div class="cal-number">${d}</div>`;
-      events.slice(0,3).forEach(b=>{
+      staying.slice(0,3).forEach(b=>{
         const ci = b.check_in === key;
-        content += `<div class="cal-booking ${ci?'checkin':''}" title="${esc(b.guest)} · ${esc(b.check_in)} → ${esc(b.check_out)}">${esc(b.guest)}</div>`;
+        content += `<div class="cal-booking ${ci?'checkin':'stay'}" title="${esc(b.guest)} · ${esc(b.check_in)} → ${esc(b.check_out)}">${ci?'↘ ':''}${esc(b.guest)}</div>`;
       });
-      if(events.length > 3) content += `<div class="muted" style="font-size:10px;margin-top:3px">+${events.length-3} more</div>`;
+      if(staying.length > 3) content += `<div class="muted" style="font-size:10px;margin-top:3px">+${staying.length-3} more</div>`;
 
-      if(checkins.length && !events.some(b=>b.check_in===key)){
-        checkins.slice(0,2).forEach(b=>content += `<div class="cal-booking checkin">↘ ${esc(b.guest)}</div>`);
-      }
+      // Checkout day is not an occupied night, so keep it visually separate and lighter.
       if(checkouts.length){
         checkouts.slice(0,2).forEach(b=>content += `<div class="cal-booking checkout">↗ ${esc(b.guest)}</div>`);
       }
